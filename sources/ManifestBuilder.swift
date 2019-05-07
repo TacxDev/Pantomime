@@ -96,6 +96,14 @@ open class ManifestBuilder {
                 case "CODECS":
                     currentMediaPlaylist.codec = parameterValue.unescaped
                 
+                case "RESOLUTION":
+                    let xXCharachterSet = CharacterSet(charactersIn: "xX")
+                    let resolutionPair = parameterValue.components(separatedBy: xXCharachterSet)
+                    
+                    if (resolutionPair.count == 2), let width = Int(resolutionPair[0]), let height = Int(resolutionPair[1]) {
+                        currentMediaPlaylist.resolution = CGSize(width: width, height: height)
+                    }
+                
                 default: ()
             }
         }

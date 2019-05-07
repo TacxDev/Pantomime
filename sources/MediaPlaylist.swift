@@ -11,6 +11,7 @@ public class MediaPlaylist {
     internal(set) public var path: String?
     internal(set) public var programId: Int = 0
     internal(set) public var bandwidth: Int = 0
+    internal(set) public var resolution: CGSize = .zero
     internal(set) public var codec: String?
     internal(set) public var version: Int?
     internal(set) public var targetDuration: Int?

@@ -19,15 +19,24 @@ public class MasterPlaylist {
     
     public func url(for segment: MediaSegment) -> URL? {
         guard
-            let masterPlaylistPath = path,
-            let playlistPath = segment.mediaPlaylist.path,
+            let playlistURL = self.url(for: segment.mediaPlaylist),
             let segmentPath = segment.path,
-            let masterPlaylistURL = URL(string: masterPlaylistPath),
-            let playlistURL = masterPlaylistURL.URLByReplacingLastPathComponent(playlistPath),
             let segmentURL = playlistURL.URLByReplacingLastPathComponent(segmentPath) else {
                 return nil
         }
         
         return segmentURL
+    }
+    
+    public func url(for mediaPlaylist: MediaPlaylist) -> URL? {
+        guard
+            let masterPlaylistPath = self.path,
+            let playlistPath = mediaPlaylist.path,
+            let masterPlaylistURL = URL(string: masterPlaylistPath),
+            let playlistURL = masterPlaylistURL.URLByReplacingLastPathComponent(playlistPath) else {
+                return nil
+        }
+        
+        return playlistURL
     }
 }
