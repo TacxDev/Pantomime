@@ -14,10 +14,26 @@ public extension URL {
         - Parameter pathComponent: path component to replace last path component with
 
         - Returns: A new URL object or nil
+     
+        Regular implementation calling -deletingLastPathComponent and -appendPathComponent produces unexpected results under certain conditions.
+        For example, for URL "schema://host/path1/path2(p1=v1;foo)" it will produce result "schema://host/path1/replacedPath2;foo)" adding unnecessary ";foo)"
      */
     @available(iOS 4.0, *)
-    public func URLByReplacingLastPathComponent(_ pathComponent: String) -> URL? {
-         let tmpurl = self.deletingLastPathComponent()
-				 return tmpurl.appendingPathComponent(pathComponent)
+    func URLByReplacingLastPathComponent(_ pathComponent: String) -> URL? {
+        var urlComponents = URLComponents()
+        urlComponents.scheme = self.scheme
+        urlComponents.host = self.host
+        
+        guard var resultURL = urlComponents.url else {
+            return nil
+        }
+        
+        let oldPathComponents = self.pathComponents.dropLast()
+        for oldPathComponent in oldPathComponents {
+            resultURL.appendPathComponent(oldPathComponent)
+        }
+        
+        resultURL.appendPathComponent(pathComponent)
+        return resultURL
     }
 }
