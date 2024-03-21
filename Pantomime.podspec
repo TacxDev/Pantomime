@@ -17,6 +17,6 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = "12.0"
   s.tvos.deployment_target = "12.0"
   s.osx.deployment_target = "11.0"
-  s.source       = { :git => "https://github.com/thomaschristensen/Pantomime.git", :tag => "0.1.3" }
+  s.source       = { :git => "https://github.com/thomaschristensen/Pantomime.git", :tag => "0.1.4" }
   s.source_files  = "sources"
 end
